@@ -18,3 +18,8 @@ Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.s
 Route::get('/karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
 Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
 Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
+
+// routes/web.php
+Route::get('/mahasiswa', function () {
+    return view('mahasiswa.index');   // resources/views/mahasiswa/index.blade.php
+});
