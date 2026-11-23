@@ -7,61 +7,58 @@ use App\Models\Karyawan;
 
 class KaryawanController extends Controller
 {
-    // menampilkan halaman daftar karyawan
+    // menampilkan data karyawan
     public function index(){
-        $karyawan = Karyawan::all();
-        return view('karyawan.index', compact('karyawan'));
+        $karyawans = Karyawan::all();
+
+        return view('karyawan.index', compact('karyawans'));
     }
 
-    // memanggil halaman form tambah karyawan
-    public function create(){
+    // Memanggil modal tambah
+    public function create()
+    {
         return view('karyawan.create');
     }
 
-    // menyimpan data karyawan baru ke database
+    //fungsi untuk menyimpan data dan validasi data
     public function store(Request $request)
     {
-        // validasi input
         $request->validate([
             'nama' => 'required|string|max:150',
+            'alamat' => 'required|string|max:150'
         ]);
 
-        // simpan data karyawan ke database
         Karyawan::create($request->all());
 
-        // redirect ke halaman daftar karyawan dengan pesan sukses
-        return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil ditambahkan!');
+        return redirect()->route('karyawan.index')->with('success', 'Data Berhasi ditambah');
     }
 
-    // menampilkan halaman form edit karyawan
+    // menampilkan modal yang di pilih
     public function edit($id)
     {
         $karyawan = Karyawan::findOrFail($id);
         return view('karyawan.edit', compact('karyawan'));
     }
 
-    // mengupdate data karyawan di database
-    public function update(Request $request, $id)
+    // mengupdate data
+    public function update(Request $request)
     {
-        // validasi input
         $request->validate([
             'nama' => 'required|string|max:150',
+            'alamat' => 'required|string|max:150'
         ]);
 
-        // update data karyawan di database
-        $karyawan = Karyawan::findOrFail($id);
-        $karyawan->update($request->all());
-
-        // redirect ke halaman daftar karyawan dengan pesan sukses
-        return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil diperbarui!');
+        return redirect()->route('karyawan.index')->with('success', 'Data Berhasil di Edit');
     }
 
+    // menghapus data
     public function destroy($id)
     {
         $karyawan = Karyawan::findOrFail($id);
         $karyawan->delete();
 
-        // redirect ke halaman daftar karyawan dengan pesan sukses
-        return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil dihapus!');
+        return redirect()->route('karyawan.index')->with('success', 'Data berhasil dihapus');
     }
+
+
 }

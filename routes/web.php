@@ -2,24 +2,34 @@
 
 // use App\Http\Controllers\BookController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\Mahasiswa\MahasiswaController;
+use App\Models\Karyawan;
 use Illuminate\Support\Facades\Route;
 
 // Kalau buka halaman utama, langsung arahkan ke /books
 // Route::redirect('/', '/books');
-Route::redirect('/', '/karyawan');
+// Route::redirect('/', '/karyawan.index');
 
 // Route::get('/books', [BookController::class, 'index'])->name('books.index');
 // Route::post('/books', [BookController::class, 'store'])->name('books.store');
 
 // rute untuk karyawan
+Route::redirect('/', '/karyawan', 301);
+// untuk menampilkan data karyawan
 Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+// Menampilkan Form tambah
+Route::get('/karyawan/tambah', [KaryawanController::class, 'create'])->name('karyawan.create');
+// Simpan Data Karyawan
 Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
-Route::get('/karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
-Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+// Untuk menampilkan form edit
+Route::get('/karyawan/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+// Untuk update data form edit
+Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.edit');
+// Untuk Menghapus
 Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 
-// routes/web.php
-Route::get('/mahasiswa', function () {
-    return view('mahasiswa.index');   // resources/views/mahasiswa/index.blade.php
-});
+// Route::get('/mahasiswa', function () {
+//     return view('mahasiswa.index');
+// });
+
+Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
